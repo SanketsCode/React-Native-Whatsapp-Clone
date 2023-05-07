@@ -9,8 +9,20 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import ChatListScreen from "./screens/ChatListScreen";
 import ChatSettingScreens from "./screens/ChatSettingScreens";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import SettingsScreen from "./screens/SettingsScreen";
 
 SplashScreen.preventAutoHideAsync();
+const Tab = createBottomTabNavigator();
+
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="ChatList" component={ChatListScreen} />
+      <Tab.Screen name="Settings" component={SettingsScreen} />
+    </Tab.Navigator>
+  );
+};
 
 export default function App() {
   const [appIsLoaded, setAppIsLoaded] = useState();
@@ -57,7 +69,7 @@ export default function App() {
     <SafeAreaProvider style={styles.container} onLayout={onLayout}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={ChatListScreen} />
+          <Stack.Screen name="Home" component={TabNavigator} />
           <Stack.Screen
             name="Settings"
             component={ChatSettingScreens}
