@@ -4,11 +4,18 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useEffect, useState } from "react";
 import * as Font from "expo-font";
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import ChatListScreen from "./screens/ChatListScreen";
+import ChatSettingScreens from "./screens/ChatSettingScreens";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [appIsLoaded, setAppIsLoaded] = useState();
+
+  const Stack = createStackNavigator();
 
   useEffect(() => {
     const prepare = async () => {
@@ -48,9 +55,19 @@ export default function App() {
 
   return (
     <SafeAreaProvider style={styles.container} onLayout={onLayout}>
-      <SafeAreaView>
-        <Text style={{ fontFamily: "mediumItalic" }}>Hi Everyone</Text>
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={ChatListScreen} />
+          <Stack.Screen
+            name="Settings"
+            component={ChatSettingScreens}
+            options={{
+              headerTitle: "My Settings",
+              headerBackTitle: "Go Back",
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }
@@ -59,7 +76,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
