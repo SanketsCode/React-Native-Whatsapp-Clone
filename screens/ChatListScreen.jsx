@@ -8,9 +8,9 @@ export default function ChatListScreen({ navigation }) {
     <View style={styles.container}>
       <Text>Sanket Sabale</Text>
       <Button
-        title="press"
+        title="Go to Chat Screen"
         onPress={() => {
-          navigation.push("Settings");
+          navigation.push("ChatScreen");
         }}
       />
     </View>
